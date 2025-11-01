@@ -1,27 +1,124 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <meta charset="UTF-8" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Open RoomExpenses</title>
-  <script>
-    // Extract query parameters (so we can pass them through)
-    const params = window.location.search;
-    const appLink = "roomexpenses://invite" + params;
+  <style>
+    body {
+      font-family: "Google Sans", "Roboto", sans-serif;
+      background-color: #f8f9fa;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      margin: 0;
+      color: #333;
+    }
 
-    // Try to open the app
-    window.location.href = appLink;
+    .card {
+      background: #fff;
+      border-radius: 16px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      padding: 32px;
+      text-align: center;
+      max-width: 320px;
+    }
 
-    // If app not installed, fallback after 2 seconds
-    setTimeout(() => {
-      window.location.href = "https://play.google.com/store/apps/details?id=com.nithishgajula.roomexpenses";
-    }, 2000);
-  </script>
+    .app-icon {
+      width: 80px;
+      height: 80px;
+      border-radius: 20px;
+      margin-bottom: 16px;
+    }
+
+    h2 {
+      margin-bottom: 12px;
+      font-size: 1.4rem;
+    }
+
+    p {
+      font-size: 0.95rem;
+      color: #666;
+      margin-bottom: 24px;
+    }
+
+    button {
+      display: block;
+      width: 100%;
+      margin: 8px 0;
+      padding: 12px;
+      font-size: 1rem;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: 0.2s;
+    }
+
+    .primary {
+      background-color: #1976d2;
+      color: white;
+    }
+
+    .secondary {
+      background-color: transparent;
+      color: #1976d2;
+      border: 1px solid #1976d2;
+    }
+
+    .secondary:hover {
+      background-color: #e3f2fd;
+    }
+
+    .timer {
+      margin-top: 16px;
+      font-size: 0.9rem;
+      color: #888;
+    }
+  </style>
 </head>
 <body>
-  <p>If nothing happens, <a id="openAppLink" href="#">open in app</a> or <a href="https://play.google.com/store/apps/details?id=com.nithishgajula.roomexpenses">download RoomExpenses</a>.</p>
+  <div class="card">
+    <img src="https://play-lh.googleusercontent.com/ogwAAL4ZAAAAAElFTkSuQmCC" alt="App Icon" class="app-icon">
+    <h2>Opening RoomExpenses...</h2>
+    <p>If nothing happens, you can open the app manually or visit Play Store.</p>
+
+    <button class="primary" id="openAppBtn">Open in App</button>
+    <button class="secondary" id="playStoreBtn">Get it on Play Store</button>
+
+    <div class="timer" id="timerText">Redirecting to Play Store in 5 seconds...</div>
+  </div>
 
   <script>
-    document.getElementById('openAppLink').href = "roomexpenses://invite" + window.location.search;
+    const APP_LINK = "roomexpenses://invite";
+    const PLAYSTORE_LINK = "https://play.google.com/store/apps/details?id=com.nithishgajula.roomexpenses";
+    let countdown = 5;
+
+    // Try opening the app immediately
+    setTimeout(() => {
+      window.location.href = APP_LINK;
+    }, 100);
+
+    // Countdown to Play Store redirect
+    const timerText = document.getElementById("timerText");
+    const timerInterval = setInterval(() => {
+      countdown--;
+      timerText.textContent = `Redirecting to Play Store in ${countdown} seconds...`;
+
+      if (countdown <= 0) {
+        clearInterval(timerInterval);
+        window.location.href = PLAYSTORE_LINK;
+      }
+    }, 1000);
+
+    // Manual button handlers
+    document.getElementById("openAppBtn").onclick = () => {
+      window.location.href = APP_LINK;
+    };
+    document.getElementById("playStoreBtn").onclick = () => {
+      window.location.href = PLAYSTORE_LINK;
+    };
   </script>
 </body>
 </html>
