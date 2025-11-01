@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8" />
+  <title>Open RoomExpenses</title>
+  <script>
+    // Extract query parameters (so we can pass them through)
+    const params = window.location.search;
+    const appLink = "roomexpenses://invite" + params;
+
+    // Try to open the app
+    window.location.href = appLink;
+
+    // If app not installed, fallback after 2 seconds
+    setTimeout(() => {
+      window.location.href = "https://play.google.com/store/apps/details?id=com.nithishgajula.roomexpenses";
+    }, 2000);
+  </script>
+</head>
+<body>
+  <p>If nothing happens, <a id="openAppLink" href="#">open in app</a> or <a href="https://play.google.com/store/apps/details?id=com.nithishgajula.roomexpenses">download RoomExpenses</a>.</p>
+
+  <script>
+    document.getElementById('openAppLink').href = "roomexpenses://invite" + window.location.search;
+  </script>
+</body>
+</html>
+
