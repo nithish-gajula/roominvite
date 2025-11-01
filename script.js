@@ -1,8 +1,11 @@
-const APP_LINK = "roomexpenses://invite";
+// Extract the roomId from the URL (after "?")
+const query = window.location.search.substring(1); // e.g. "?abcd123" → "abcd123"
+const roomId = query || ""; // fallback if no query
+const APP_LINK = `roomexpenses://invite?roomId=${roomId}`;
 const PLAYSTORE_LINK = "https://play.google.com/store/apps/details?id=com.nithishgajula.roomexpenses";
-let countdown = 10;
+let countdown = 15;
 
-// Try opening the app immediately
+// Try opening the app immediately with the roomId
 setTimeout(() => {
   window.location.href = APP_LINK;
 }, 100);
