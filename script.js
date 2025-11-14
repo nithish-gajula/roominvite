@@ -1,7 +1,7 @@
 // Extract the roomId from the URL (after "?")
 const query = window.location.search.substring(1); // e.g. "?abcd123" → "abcd123"
 const roomId = query || ""; // fallback if no query
-const APP_LINK = `room_expenses://invite?${roomId}`;
+const APP_LINK = `roomexpenses://invite?${roomId}`;
 const PLAYSTORE_LINK = "https://play.google.com/store/apps/details?id=com.nithishgajula.roomexpenses";
 let countdown = 15;
 
